@@ -40,7 +40,7 @@
 
     <!-- Compteur résultats -->
     <p class="text-sm text-gray-500 mb-3">
-        <span class="font-semibold text-gray-900">4</span> produits trouvés pour
+        <span class="font-semibold text-gray-900" id="nbProduits">0</span> produits trouvés pour
         <span class="font-semibold text-gray-900">"chocolat"</span>
     </p>
 
@@ -213,12 +213,11 @@
     </div>
 
 </div>
-<script src="dataset.js"></script>
 <script>
-    const btnRechercher = document.getElementById('btn-rechercher');
-    const listResultats = document.getElementById('resultats');
+    const btnRechercher  = document.getElementById('btn-rechercher');
+    const listResultats  = document.getElementById('resultats');
     const inputRecherche = document.getElementById('searchValue');
-
+    let nbProduits       = document.getElementById("nbProduits");
     const scoreColors = {
         a: '#1D9E75',
         b: '#639922',
@@ -228,6 +227,7 @@
     };
 
     function afficherEtatInitial() {
+        nbProduits.innerText = '0';
         listResultats.innerHTML = `
             <div class="text-center py-12 text-gray-400">
                 <p class="text-4xl mb-3">🔍</p>
@@ -237,6 +237,7 @@
     }
 
     function afficherAucunResultat(query) {
+        nbProduits.innerText = '0';
         listResultats.innerHTML = `
             <div class="text-center py-12 text-gray-400">
                 <p class="text-4xl mb-3">😕</p>
@@ -287,19 +288,27 @@
                 </div>
             </div>
         `);
+        nbProduits.innerText = liste.length;
         listResultats.innerHTML = liste.join('');
     }
 
     // État initial au chargement de la page
     afficherEtatInitial();
 
-    btnRechercher.addEventListener('click', () => {
+    btnRechercher.addEventListener('click', async () => {
         const query = inputRecherche.value.trim().toLowerCase();
 
         if (!query) {
             afficherEtatInitial();
             return;
         }
+
+        const reponse = await fetch("./dataset.json");
+
+        // 4. Convertir en JSON
+        const data = await reponse.json();
+        // 5. Utiliser les données
+        console.log(data.products); // tableau de produits
 
         const produitsTrouves = data.products.filter(r =>
             r.product_name.toLowerCase().includes(query)
