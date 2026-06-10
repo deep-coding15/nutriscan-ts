@@ -1,0 +1,16 @@
+.idea/
+.idea
+/tmp
+/out-tsc
+
+/node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/.pnp
+.pnp.js
+
+.vscode/*
+
+niveau2-catalogue/
+niveau3-dashboard/
