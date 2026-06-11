@@ -156,7 +156,12 @@ function afficherResultats(produits: Product[]): void {
                 ${cellNutriment('Protéines',r.nutriments.proteins_100g)}
             </div>
             <div class="flex flex-wrap gap-3 px-4 py-2 bg-gray-50 text-xs text-gray-400">
-                <span>🌍 ${texte(r.countries)}</span>
+                <span>🌍${texte(
+                    r.countries.length ? 
+                        r.countries.join(', ') : 
+                        '—'
+                    )
+                }</span>
                 <span>🔢 <span class="font-mono">${texte(r.code)}</span></span>
                 <span>Nova : ${novaTag(r.nova_group)}</span>
             </div>

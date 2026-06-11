@@ -7,11 +7,20 @@ interface RawProduct {
     _id?: string;           // search.openfoodfacts.org utilise _id au lieu de code
     product_name?: string;
     brands?: string;
-    countries?: string;
+    countries_tags?: Array<string> | string;
     nutriscore_grade?: string;
     nova_group?: number;
     categories?: string;
     nutriments?: Record<string, number | null>;
+}
+
+function normaliserPays(raw: Array<string> | string | undefined): string[] {
+    if (!raw) return [];
+    const tags = Array.isArray(raw) ? raw : [raw];
+    return tags
+        .map(t => t.replace(/^[a-z]{2}:/, ''))
+        .map(t => t.charAt(0).toUpperCase() + t.slice(1))
+        .filter(Boolean);
 }
 
 function normaliserProduit(raw: RawProduct): Product {
@@ -19,7 +28,7 @@ function normaliserProduit(raw: RawProduct): Product {
         code:             raw.code ?? raw._id ?? '?',
         product_name:     raw.product_name ?? 'Nom inconnu',
         brands:           raw.brands        ?? '—',
-        countries:        raw.countries     ?? '—',
+        countries:        normaliserPays(raw.countries_tags),
         nutriscore_grade: raw.nutriscore_grade ?? '?',
         nova_group:       raw.nova_group    ?? 0,
         categories:       raw.categories    ?? '—',

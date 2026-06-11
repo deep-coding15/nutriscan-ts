@@ -10,7 +10,7 @@ export interface Product {
     code: string;
     product_name: string;
     brands: string;
-    countries: string;
+    countries: Array<string>;
     nutriscore_grade: string;
     nova_group: number;
     categories: string;

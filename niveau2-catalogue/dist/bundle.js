@@ -2,12 +2,17 @@
 (() => {
   // src/api.ts
   var DATASET_URL = "http://localhost:3002/api/search?q=";
+  function normaliserPays(raw) {
+    if (!raw) return [];
+    const tags = Array.isArray(raw) ? raw : [raw];
+    return tags.map((t) => t.replace(/^[a-z]{2}:/, "")).map((t) => t.charAt(0).toUpperCase() + t.slice(1)).filter(Boolean);
+  }
   function normaliserProduit(raw) {
     return {
       code: raw.code ?? raw._id ?? "?",
       product_name: raw.product_name ?? "Nom inconnu",
       brands: raw.brands ?? "\u2014",
-      countries: raw.countries ?? "\u2014",
+      countries: normaliserPays(raw.countries_tags),
       nutriscore_grade: raw.nutriscore_grade ?? "?",
       nova_group: raw.nova_group ?? 0,
       categories: raw.categories ?? "\u2014",
@@ -160,7 +165,9 @@
                 ${cellNutriment("Prot\xE9ines", r.nutriments.proteins_100g)}
             </div>
             <div class="flex flex-wrap gap-3 px-4 py-2 bg-gray-50 text-xs text-gray-400">
-                <span>\u{1F30D} ${texte(r.countries)}</span>
+                <span>\u{1F30D}${texte(
+      r.countries.length ? r.countries.join(", ") : "\u2014"
+    )}</span>
                 <span>\u{1F522} <span class="font-mono">${texte(r.code)}</span></span>
                 <span>Nova : ${novaTag(r.nova_group)}</span>
             </div>
