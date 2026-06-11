@@ -5,11 +5,15 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "esbuild src/script.ts --bundle --outfile=dist/bundle.js",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "start": "node server.js"
   },
   "devDependencies": {
     "esbuild": "^0.28.0",
     "typescript": "^5.5.3"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }

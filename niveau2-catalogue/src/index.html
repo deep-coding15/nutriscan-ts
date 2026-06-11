@@ -38,177 +38,44 @@
     </button>
   </div>
 
+  <!-- Filtres + Tri -->
+  <div class="flex flex-wrap items-center gap-2 mb-4">
+    <div class="flex gap-1" id="filtres">
+      <button data-grade="tous" class="filtre-btn px-3 py-1 rounded-full text-xs font-semibold border-2 border-gray-300 text-gray-500 transition active">Tous</button>
+      <button data-grade="a"    class="filtre-btn px-3 py-1 rounded-full text-xs font-semibold border-2 border-[#1D9E75] text-[#1D9E75] transition">A</button>
+      <button data-grade="b"    class="filtre-btn px-3 py-1 rounded-full text-xs font-semibold border-2 border-[#639922] text-[#639922] transition">B</button>
+      <button data-grade="c"    class="filtre-btn px-3 py-1 rounded-full text-xs font-semibold border-2 border-[#D4AC0D] text-[#D4AC0D] transition">C</button>
+      <button data-grade="d"    class="filtre-btn px-3 py-1 rounded-full text-xs font-semibold border-2 border-[#E67E22] text-[#E67E22] transition">D</button>
+      <button data-grade="e"    class="filtre-btn px-3 py-1 rounded-full text-xs font-semibold border-2 border-[#E24B4A] text-[#E24B4A] transition">E</button>
+    </div>
+    <select id="tri" class="ml-auto h-8 px-3 rounded-lg border border-gray-200 bg-white text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+      <option value="defaut">Trier par défaut</option>
+      <option value="nom">Trier par nom</option>
+      <option value="categorie">Trier par catégorie</option>
+      <option value="nutriscore">Trier par Nutri-Score</option>
+    </select>
+  </div>
+
   <!-- Compteur résultats -->
-  <p class="text-sm text-gray-500 mb-3">
-    <span class="font-semibold text-gray-900" id="nbProduits">0</span> produits trouvés pour
-    <span class="font-semibold text-gray-900">"chocolat"</span>
+  <p id="compteur" class="text-sm text-gray-500 mb-3 hidden">
+    <span class="font-semibold text-gray-900" id="nbProduits"></span> produits trouvés pour
+    <span class="font-semibold text-gray-900" id="queryAffichee"></span>
   </p>
 
   <!-- Liste de résultats -->
-  <div class="flex flex-col gap-3 mb-8" id="resultats">
+  <div class="flex flex-col gap-3 mb-8" id="resultats"></div>
 
-    <!-- Produit 1 -->
-    <div class="bg-white border border-gray-100 rounded-2xl overflow-hidden">
-      <div class="flex items-center gap-4 p-4 border-b border-gray-50">
-        <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-2xl flex-shrink-0">🍫</div>
-        <div class="flex-1 min-w-0">
-          <h2 class="text-sm font-semibold text-gray-900 truncate">Nutella</h2>
-          <p class="text-xs text-gray-400">Ferrero</p>
-        </div>
-        <div class="flex items-center gap-2 flex-shrink-0">
-          <div class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-white font-bold text-sm" style="background-color: #E24B4A;">E</div>
-        </div>
-      </div>
-      <div class="grid grid-cols-4 divide-x divide-gray-100">
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Calories</p>
-          <p class="text-sm font-semibold text-gray-900">539</p>
-          <p class="text-xs text-gray-400">kcal</p>
-        </div>
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Sucres</p>
-          <p class="text-sm font-semibold text-gray-900">56.3 g</p>
-        </div>
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Graisses</p>
-          <p class="text-sm font-semibold text-gray-900">30.9 g</p>
-        </div>
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Protéines</p>
-          <p class="text-sm font-semibold text-gray-900">6.3 g</p>
-        </div>
-      </div>
-      <div class="flex flex-wrap gap-3 px-4 py-2 bg-gray-50 text-xs text-gray-400">
-        <span>🌍 France</span>
-        <span>🔢 <span class="font-mono">3017620422003</span></span>
-        <span>Nova : <span class="font-semibold text-gray-600">4</span></span>
-      </div>
-    </div>
-
-    <!-- Produit 2 -->
-    <div class="bg-white border border-gray-100 rounded-2xl overflow-hidden">
-      <div class="flex items-center gap-4 p-4 border-b border-gray-50">
-        <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-2xl flex-shrink-0">🍫</div>
-        <div class="flex-1 min-w-0">
-          <h2 class="text-sm font-semibold text-gray-900 truncate">Chocolat noir 70% cacao</h2>
-          <p class="text-xs text-gray-400">Lindt</p>
-        </div>
-        <div class="flex items-center gap-2 flex-shrink-0">
-          <div class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-white font-bold text-sm" style="background-color: #639922;">B</div>
-        </div>
-      </div>
-      <div class="grid grid-cols-4 divide-x divide-gray-100">
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Calories</p>
-          <p class="text-sm font-semibold text-gray-900">598</p>
-          <p class="text-xs text-gray-400">kcal</p>
-        </div>
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Sucres</p>
-          <p class="text-sm font-semibold text-gray-900">28.0 g</p>
-        </div>
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Graisses</p>
-          <p class="text-sm font-semibold text-gray-900">43.0 g</p>
-        </div>
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Protéines</p>
-          <p class="text-sm font-semibold text-gray-900">8.5 g</p>
-        </div>
-      </div>
-      <div class="flex flex-wrap gap-3 px-4 py-2 bg-gray-50 text-xs text-gray-400">
-        <span>🌍 Suisse</span>
-        <span>🔢 <span class="font-mono">4000539401222</span></span>
-        <span>Nova : <span class="font-semibold text-gray-600">2</span></span>
-      </div>
-    </div>
-
-    <!-- Produit 3 -->
-    <div class="bg-white border border-gray-100 rounded-2xl overflow-hidden">
-      <div class="flex items-center gap-4 p-4 border-b border-gray-50">
-        <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-2xl flex-shrink-0">🍫</div>
-        <div class="flex-1 min-w-0">
-          <h2 class="text-sm font-semibold text-gray-900 truncate">Poudre de cacao maigre</h2>
-          <p class="text-xs text-gray-400">Van Houten</p>
-        </div>
-        <div class="flex items-center gap-2 flex-shrink-0">
-          <div class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-white font-bold text-sm" style="background-color: #1D9E75;">A</div>
-        </div>
-      </div>
-      <div class="grid grid-cols-4 divide-x divide-gray-100">
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Calories</p>
-          <p class="text-sm font-semibold text-gray-900">274</p>
-          <p class="text-xs text-gray-400">kcal</p>
-        </div>
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Sucres</p>
-          <p class="text-sm font-semibold text-gray-900">1.5 g</p>
-        </div>
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Graisses</p>
-          <p class="text-sm font-semibold text-gray-900">11.0 g</p>
-        </div>
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Protéines</p>
-          <p class="text-sm font-semibold text-gray-900">22.0 g</p>
-        </div>
-      </div>
-      <div class="flex flex-wrap gap-3 px-4 py-2 bg-gray-50 text-xs text-gray-400">
-        <span>🌍 Pays-Bas</span>
-        <span>🔢 <span class="font-mono">8714100833031</span></span>
-        <span>Nova : <span class="font-semibold text-gray-600">1</span></span>
-      </div>
-    </div>
-
-    <!-- Produit 4 — sans Nutri-Score -->
-    <div class="bg-white border border-gray-100 rounded-2xl overflow-hidden">
-      <div class="flex items-center gap-4 p-4 border-b border-gray-50">
-        <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-2xl flex-shrink-0">🍫</div>
-        <div class="flex-1 min-w-0">
-          <h2 class="text-sm font-semibold text-gray-900 truncate">Tablette chocolat au lait</h2>
-          <p class="text-xs text-gray-400">Marque inconnue</p>
-        </div>
-        <div class="flex items-center gap-2 flex-shrink-0">
-          <div class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-white font-bold text-sm bg-gray-300">?</div>
-        </div>
-      </div>
-      <div class="grid grid-cols-4 divide-x divide-gray-100">
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Calories</p>
-          <p class="text-sm font-semibold text-gray-400">—</p>
-        </div>
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Sucres</p>
-          <p class="text-sm font-semibold text-gray-400">—</p>
-        </div>
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Graisses</p>
-          <p class="text-sm font-semibold text-gray-400">—</p>
-        </div>
-        <div class="p-3 text-center">
-          <p class="text-xs text-gray-400 mb-1">Protéines</p>
-          <p class="text-sm font-semibold text-gray-400">—</p>
-        </div>
-      </div>
-      <div class="flex flex-wrap gap-3 px-4 py-2 bg-gray-50 text-xs text-gray-400">
-        <span>🌍 —</span>
-        <span>🔢 <span class="font-mono">—</span></span>
-        <span>Nova : <span class="font-semibold text-gray-600">—</span></span>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Concepts JS -->
+  <!-- Concepts TS -->
   <div class="pt-6 border-t border-gray-200">
-    <h3 class="text-xs uppercase tracking-widest text-gray-400 mb-3">Concepts JS travaillés</h3>
+    <h3 class="text-xs uppercase tracking-widest text-gray-400 mb-3">Concepts TS travaillés</h3>
     <div class="flex flex-wrap gap-2">
-      <span class="text-xs font-mono bg-gray-100 text-gray-600 px-3 py-1 rounded-full">fetch()</span>
-      <span class="text-xs font-mono bg-gray-100 text-gray-600 px-3 py-1 rounded-full">async/await</span>
-      <span class="text-xs font-mono bg-gray-100 text-gray-600 px-3 py-1 rounded-full">DOM manipulation</span>
-      <span class="text-xs font-mono bg-gray-100 text-gray-600 px-3 py-1 rounded-full">gestion d'erreurs</span>
-      <span class="text-xs font-mono bg-gray-100 text-gray-600 px-3 py-1 rounded-full">états UI</span>
+      <span class="text-xs font-mono bg-gray-100 text-gray-600 px-3 py-1 rounded-full">interface Product</span>
+      <span class="text-xs font-mono bg-gray-100 text-gray-600 px-3 py-1 rounded-full">interface Nutriment</span>
+      <span class="text-xs font-mono bg-gray-100 text-gray-600 px-3 py-1 rounded-full">type NutriScore</span>
+      <span class="text-xs font-mono bg-gray-100 text-gray-600 px-3 py-1 rounded-full">fetch typés</span>
+      <span class="text-xs font-mono bg-gray-100 text-gray-600 px-3 py-1 rounded-full">null / undefined</span>
+      <span class="text-xs font-mono bg-gray-100 text-gray-600 px-3 py-1 rounded-full">Array.filter()</span>
+      <span class="text-xs font-mono bg-gray-100 text-gray-600 px-3 py-1 rounded-full">Array.sort()</span>
     </div>
   </div>
 </div>
