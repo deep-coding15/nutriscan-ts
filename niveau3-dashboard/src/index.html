@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niveau 3 — Dashboard qualité</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: system-ui, sans-serif;
+            background: #f5f4f0;
+            color: #1a1a18;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .page {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            background: #7F77DD;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a18;
+            margin-bottom: 0.3rem;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #5F5E5A;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .search-row input {
+            width: 260px;
+            height: 40px;
+            border: 1px solid #D3D1C7;
+            border-radius: 8px;
+            padding: 0 12px;
+            font-size: 14px;
+            background: #fff;
+            outline: none;
+            color: #1a1a18;
+        }
+
+        .search-row input:focus {
+            border-color: #7F77DD;
+        }
+
+        .search-row input::placeholder { color: #B4B2A9; }
+
+        .search-row button {
+            height: 40px;
+            padding: 0 16px;
+            background: #534AB7;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.12s;
+        }
+
+        .search-row button:hover { background: #3C3489; }
+
+        .cache-indicator {
+            font-size: 12px;
+            color: #888780;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cache-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #D3D1C7;
+        }
+
+        .cache-dot.hit { background: #1D9E75; }
+
+        .mode-pill {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 20px;
+            display: none;
+        }
+
+        .mode-pill.online  { display: inline; background: #DCFCE7; color: #166534; }
+        .mode-pill.offline { display: inline; background: #FEE2E2; color: #991B1B; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: #fff;
+            border: 1px solid #E8E7E2;
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #888780;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-value {
+            font-size: 26px;
+            font-weight: 600;
+            color: #1a1a18;
+            line-height: 1.1;
+        }
+
+        .stat-sub {
+            font-size: 12px;
+            color: #B4B2A9;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .panel {
+            background: #fff;
+            border: 1px solid #E8E7E2;
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .panel-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #444441;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-title span {
+            font-size: 11px;
+            font-weight: 400;
+            color: #B4B2A9;
+        }
+
+        .score-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .score-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .score-letter {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .bar-wrap {
+            flex: 1;
+            height: 8px;
+            background: #F1EFE8;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .bar-a { background: #1D9E75; }
+        .bar-b { background: #639922; }
+        .bar-c { background: #EF9F27; }
+        .bar-d { background: #D85A30; }
+        .bar-e { background: #E24B4A; }
+        .bar-x { background: #B4B2A9; }
+
+        .score-count {
+            font-size: 13px;
+            font-weight: 500;
+            color: #444441;
+            width: 28px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .score-pct {
+            font-size: 12px;
+            color: #888780;
+            width: 36px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .calorie-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .calorie-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            background: #F5F4F0;
+            border-radius: 8px;
+        }
+
+        .calorie-rank {
+            font-size: 11px;
+            color: #B4B2A9;
+            width: 16px;
+            flex-shrink: 0;
+        }
+
+        .calorie-name {
+            flex: 1;
+            font-size: 13px;
+            color: #1a1a18;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .calorie-ns {
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .calorie-val {
+            font-size: 13px;
+            font-weight: 500;
+            color: #444441;
+            flex-shrink: 0;
+            text-align: right;
+            min-width: 70px;
+        }
+
+        .arch-panel {
+            background: #fff;
+            border: 1px solid #E8E7E2;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .arch-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #444441;
+            margin-bottom: 1rem;
+        }
+
+        .arch-layers {
+            display: flex;
+            gap: 0;
+            border: 1px solid #E8E7E2;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .arch-layer {
+            flex: 1;
+            padding: 12px;
+            border-right: 1px solid #E8E7E2;
+            position: relative;
+        }
+
+        .arch-layer:last-child { border-right: none; }
+
+        .layer-name {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .layer-api .layer-name { color: #7F77DD; }
+        .layer-service .layer-name { color: #1D9E75; }
+        .layer-model .layer-name { color: #378ADD; }
+        .layer-ui .layer-name { color: #D85A30; }
+
+        .layer-files {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .layer-file {
+            font-size: 11px;
+            font-family: monospace;
+            background: #F5F4F0;
+            border-radius: 4px;
+            padding: 3px 7px;
+            color: #444441;
+        }
+
+        .empty-panel {
+            text-align: center;
+            padding: 2rem;
+            color: #B4B2A9;
+            font-size: 14px;
+        }
+
+        .concepts {
+            border-top: 1px solid #E8E7E2;
+            padding-top: 1.25rem;
+        }
+
+        .concepts h3 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #B4B2A9;
+            margin-bottom: 0.75rem;
+        }
+
+        .concept-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            font-size: 12px;
+            background: #EEEDFE;
+            color: #3C3489;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-family: monospace;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #D3D1C7;
+            border-top-color: #534AB7;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+
+        .spinner.visible { display: inline-block; }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="page-header">
+        <div>
+            <span class="badge">Niveau 3 — TypeScript avancé</span>
+            <h1>Dashboard qualité nutritionnelle</h1>
+            <p class="subtitle">Architecture en couches : ApiService · ProductModel · UIRenderer · Cache Map&lt;string, Product[]&gt;</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-end;">
+            <div class="search-row">
+                <input type="text" id="searchInput" placeholder="ex: cereales, biscuits..." />
+                <button id="searchBtn">Analyser</button>
+                <div class="spinner" id="spinner"></div>
+            </div>
+            <div class="cache-indicator">
+                <div class="cache-dot" id="cacheDot"></div>
+                <span id="cacheLabel">Cache vide</span>
+                <span>·</span>
+                <span class="mode-pill" id="modePill"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Produits analysés</div>
+            <div class="stat-value" id="statTotal">—</div>
+            <div class="stat-sub" id="statQuery">Lance une recherche</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Score moyen</div>
+            <div class="stat-value" id="statAvg" style="color: #B4B2A9;">—</div>
+            <div class="stat-sub">sur 5 niveaux (A=1)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">% Grade A ou B</div>
+            <div class="stat-value" id="statGood" style="color: #1D9E75;">—</div>
+            <div class="stat-sub">bons produits</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Calories moy.</div>
+            <div class="stat-value" id="statKcal">—</div>
+            <div class="stat-sub">kcal / 100g</div>
+        </div>
+    </div>
+
+    <div class="main-grid">
+        <div class="panel">
+            <div class="panel-title">Répartition Nutri-Score <span id="distTotal"></span></div>
+            <div class="score-bars" id="scoreBars">
+                <div class="empty-panel">Lance une analyse pour voir la distribution.</div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">Top 8 — calories les plus basses <span>triés par kcal/100g</span></div>
+            <div class="calorie-list" id="calorieList">
+                <div class="empty-panel">Aucune donnée.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="arch-panel">
+        <div class="arch-title">Architecture du code — séparation des responsabilités</div>
+        <div class="arch-layers">
+            <div class="arch-layer layer-api">
+                <div class="layer-name">ApiService</div>
+                <div class="layer-files">
+                    <div class="layer-file">foodApi.ts</div>
+                    <div class="layer-file">fetch typé</div>
+                    <div class="layer-file">gestion erreurs</div>
+                </div>
+            </div>
+            <div class="arch-layer layer-service">
+                <div class="layer-name">Cache</div>
+                <div class="layer-files">
+                    <div class="layer-file">Map&lt;string, T&gt;</div>
+                    <div class="layer-file">cache.has(key)</div>
+                    <div class="layer-file">cache.set(k,v)</div>
+                </div>
+            </div>
+            <div class="arch-layer layer-model">
+                <div class="layer-name">Models</div>
+                <div class="layer-files">
+                    <div class="layer-file">Product</div>
+                    <div class="layer-file">Nutriments</div>
+                    <div class="layer-file">NutriScore</div>
+                </div>
+            </div>
+            <div class="arch-layer layer-ui">
+                <div class="layer-name">UIRenderer</div>
+                <div class="layer-files">
+                    <div class="layer-file">renderStats()</div>
+                    <div class="layer-file">renderBars()</div>
+                    <div class="layer-file">renderList()</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="concepts">
+        <h3>Concepts TypeScript avancés travaillés</h3>
+        <div class="concept-tags">
+            <span class="tag">class ApiService</span>
+            <span class="tag">class UIRenderer</span>
+            <span class="tag">Map&lt;string, Product[]&gt;</span>
+            <span class="tag">interface Product</span>
+            <span class="tag">type NutriScore</span>
+            <span class="tag">séparation responsabilités</span>
+            <span class="tag">cache local</span>
+            <span class="tag">Array.reduce()</span>
+            <span class="tag">optional chaining (?.)
+</span>
+        </div>
+    </div>
+</div>
+<script src="../dist/bundle.js"></script>
+</body>
+</html>

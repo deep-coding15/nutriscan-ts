@@ -4,10 +4,15 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "esbuild src/script.ts --bundle --outfile=dist/bundle.js",
+    "check": "tsc --noEmit",
+    "start": "node server/server.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "express": "^5.2.1"
+  },
   "devDependencies": {
+    "esbuild": "^0.28.0",
     "typescript": "^5.5.3"
   },
   "private": true
