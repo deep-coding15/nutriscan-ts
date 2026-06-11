@@ -1,0 +1,136 @@
+{
+  "products": [
+    {
+      "code": "3017620422003",
+      "product_name": "Nutella",
+      "brands": "Ferrero",
+      "countries": "France",
+      "nutriscore_grade": "e",
+      "nova_group": 4,
+      "categories": "Pâtes à tartiner,Petit-déjeuner",
+      "nutriments": {
+        "energy-kcal_100g": 539,
+        "sugars_100g": 56.3,
+        "fat_100g": 30.9,
+        "proteins_100g": 6.3,
+        "fiber_100g": null
+      }
+    },
+    {
+      "code": "4000539401222",
+      "product_name": "Chocolat noir 70% cacao",
+      "brands": "Lindt",
+      "countries": "Suisse",
+      "nutriscore_grade": "b",
+      "nova_group": 2,
+      "categories": "Chocolats,Confiseries",
+      "nutriments": {
+        "energy-kcal_100g": 598,
+        "sugars_100g": 28.0,
+        "fat_100g": 43.0,
+        "proteins_100g": 8.5,
+        "fiber_100g": 11.0
+      }
+    },
+    {
+      "code": "3228857000166",
+      "product_name": "Lait entier UHT",
+      "brands": "Lactel",
+      "countries": "France",
+      "nutriscore_grade": "b",
+      "nova_group": 1,
+      "categories": "Boissons,Produits laitiers,Laits",
+      "nutriments": {
+        "energy-kcal_100g": 64,
+        "sugars_100g": 4.8,
+        "fat_100g": 3.6,
+        "proteins_100g": 3.2,
+        "fiber_100g": 0
+      }
+    },
+    {
+      "code": "7613034626844",
+      "product_name": "Lait concentré sucré",
+      "brands": "Nestlé",
+      "countries": "Suisse,France",
+      "nutriscore_grade": "d",
+      "nova_group": 3,
+      "categories": "Produits laitiers,Laits concentrés",
+      "nutriments": {
+        "energy-kcal_100g": 321,
+        "sugars_100g": 55.0,
+        "fat_100g": 8.0,
+        "proteins_100g": 7.5,
+        "fiber_100g": 0
+      }
+    },
+    {
+      "code": "3033490004743",
+      "product_name": "Yaourt nature",
+      "brands": "Danone",
+      "countries": "France",
+      "nutriscore_grade": "a",
+      "nova_group": 1,
+      "categories": "Produits laitiers,Yaourts",
+      "nutriments": {
+        "energy-kcal_100g": 55,
+        "sugars_100g": 4.1,
+        "fat_100g": 1.8,
+        "proteins_100g": 5.3,
+        "fiber_100g": 0
+      }
+    },
+    {
+      "code": "7622210449283",
+      "product_name": "Biscuits Oréo",
+      "brands": "Nabisco",
+      "countries": "États-Unis",
+      "nutriscore_grade": "e",
+      "nova_group": 4,
+      "categories": "Biscuits,Snacks sucrés",
+      "nutriments": {
+        "energy-kcal_100g": 471,
+        "sugars_100g": 40.0,
+        "fat_100g": 20.0,
+        "proteins_100g": 5.0,
+        "fiber_100g": 2.0
+      }
+    },
+    {
+      "code": "3560070976324",
+      "product_name": "Biscuits sablés pur beurre",
+      "brands": "Lu",
+      "countries": "France",
+      "nutriscore_grade": "d",
+      "nova_group": 4,
+      "categories": "Biscuits,Pâtisseries",
+      "nutriments": {
+        "energy-kcal_100g": 490,
+        "sugars_100g": 22.0,
+        "fat_100g": 24.0,
+        "proteins_100g": 6.0,
+        "fiber_100g": 1.5
+      }
+    },
+    {
+      "code": "3270190127512",
+      "product_name": "Riz basmati blanc",
+      "brands": "Uncle Ben's",
+      "countries": "Inde,France",
+      "nutriscore_grade": "b",
+      "nova_group": 1,
+      "categories": "Céréales,Riz",
+      "nutriments": {
+        "energy-kcal_100g": 350,
+        "sugars_100g": 0.1,
+        "fat_100g": 0.5,
+        "proteins_100g": 7.5,
+        "fiber_100g": 1.4
+      }
+    }
+  ],
+  "count": 8,
+  "page": 1,
+  "page_size": 8,
+  "page_count": 1
+}
