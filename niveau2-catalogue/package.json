@@ -6,7 +6,7 @@
   "scripts": {
     "build": "esbuild src/script.ts --bundle --outfile=dist/bundle.js",
     "check": "tsc --noEmit",
-    "start": "node server.js"
+    "start": "node server/server.js"
   },
   "devDependencies": {
     "esbuild": "^0.28.0",
